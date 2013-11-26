@@ -62,4 +62,8 @@ funtimes = Board.new
 castleman = Rook.new(:w, [4, 0], funtimes)
 manpawn = Pawn.new(:b, [1, 1], funtimes)
 kingman = King.new(:b, [4, 4], funtimes)
-funtimes.move([1, 1], [1, 3])
+funtimes.move([4, 0], [4, 4])
+
+p castleman.pos
+
+p funtimes.all_pieces.count

@@ -28,7 +28,8 @@ class Piece
   end
 
   def pos=(pos)
-    @board[pos] = pos
+    @board[@pos] = nil
+    @board[pos] = self
     @pos = pos
   end
 end

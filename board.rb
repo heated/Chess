@@ -62,4 +62,4 @@ funtimes = Board.new
 castleman = Rook.new(:w, [4, 0], funtimes)
 manpawn = Pawn.new(:b, [1, 1], funtimes)
 kingman = King.new(:b, [4, 4], funtimes)
-puts funtimes.in_check?(:b)
+funtimes.move([1, 1], [1, 3])

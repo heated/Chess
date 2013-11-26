@@ -6,9 +6,6 @@ require_relative 'pawn.rb'
 class Board
   def initialize
     @grid = Array.new(8) { Array.new(8) }
-    castleman = Rook.new(:w, [0,0], self)
-    manpawn = Pawn.new(:b, [1, 1], self)
-    p manpawn.moves
   end
 
   def empty?(pos)
@@ -34,6 +31,35 @@ class Board
     @grid[pos[0]][pos[1]] = piece
   end
 
+  def in_check?(color)
+    king = pieces(color).select { |piece| piece.is_a?(King) }.first
+    pieces(color == :w ? :b : :w).any? { |piece| piece.moves.include?(king.pos) }
+  end
+
+  def pieces(color)
+    @grid.flatten.select { |piece| piece && piece.color == color }
+  end
+
+  def all_pieces
+    pieces(:b) + pieces(:w)
+  end
+
+  def dup
+    new_board = Board.new
+    all_pieces.each { |piece| piece.dup(new_board) }
+    new_board
+  end
+
+  def move(start_pos, end_pos)
+    piece = self[start_pos]
+    unless piece.nil?
+      piece.pos = end_pos if piece.moves.include?(end_pos)
+    end
+  end
 end
 
 funtimes = Board.new
+castleman = Rook.new(:w, [4, 0], funtimes)
+manpawn = Pawn.new(:b, [1, 1], funtimes)
+kingman = King.new(:b, [4, 4], funtimes)
+puts funtimes.in_check?(:b)

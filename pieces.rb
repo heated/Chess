@@ -24,7 +24,9 @@ class Piece
   end
 
   def valid_moves
-
+    moves.reject do |move|
+      @board.dup.move(self.pos, move).in_check?(@color)
+    end
   end
 
   def pos=(pos)

@@ -55,15 +55,14 @@ class Board
     unless piece.nil?
       piece.pos = end_pos if piece.moves.include?(end_pos)
     end
+    self
   end
 end
 
 funtimes = Board.new
 castleman = Rook.new(:w, [4, 0], funtimes)
 manpawn = Pawn.new(:b, [1, 1], funtimes)
-kingman = King.new(:b, [4, 4], funtimes)
-funtimes.move([4, 0], [4, 4])
+kingman = King.new(:b, [3, 4], funtimes)
 
-p castleman.pos
+p kingman.valid_moves
 
-p funtimes.all_pieces.count

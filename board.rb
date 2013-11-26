@@ -70,11 +70,26 @@ class Board
     in_check?(color) && pieces(color).all? { |piece| piece.valid_moves.size == 0 }
   end
 
+  def over?
+    checkmate?(:w) || checkmate?(:b)
+  end
+
+  def winner?
+    checkmate?(:w) ? :b : :w
+  end
+
+  def to_s
+    str = ""
+    @grid.size.times do |y|
+      @grid.size.times do |x|
+        if self[[x, y]]
+          str << self[[x, y]].to_s
+        else
+          str << "_"
+        end
+      end
+      str << "\n"
+    end
+    str
+  end
 end
-
-funtimes = Board.new
-castleman = Rook.new(:w, [7, 0], funtimes)
-kingman = King.new(:b, [0,0], funtimes)
-queenlady = Queen.new(:w, [0,2], funtimes)
-p funtimes.checkmate?(:b)
-

@@ -1,4 +1,6 @@
 require_relative 'pieces.rb'
+require_relative 'sliding_pieces.rb'
+require_relative 'stepping_pieces.rb'
 
 class Board
   def initialize

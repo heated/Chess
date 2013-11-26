@@ -1,10 +1,13 @@
 require_relative 'pieces.rb'
 require_relative 'sliding_pieces.rb'
 require_relative 'stepping_pieces.rb'
+require_relative 'pawn.rb'
 
 class Board
   def initialize
     @grid = Array.new(8) { Array.new(8) }
+    castleman = Rook.new(:w, [0,0], self)
+    manpawn = Pawn.new(:b, [1, 1], self)
     p manpawn.moves
   end
 

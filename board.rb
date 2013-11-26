@@ -53,16 +53,25 @@ class Board
   def move(start_pos, end_pos)
     piece = self[start_pos]
     unless piece.nil?
-      piece.pos = end_pos if piece.moves.include?(end_pos)
+      raise "You can't make that move!" unless piece.moves.include?(end_pos)
+      raise "You can't move into check!" unless piece.valid_moves.include?(end_pos)
+      piece.pos = end_pos
     end
     self
   end
+
+  def move!(start_pos, end_pos)
+    piece = self[start_pos]
+    piece.pos = end_pos
+    self
+  end
+
 end
 
 funtimes = Board.new
 castleman = Rook.new(:w, [4, 0], funtimes)
 manpawn = Pawn.new(:b, [1, 1], funtimes)
 kingman = King.new(:b, [3, 4], funtimes)
-
+funtimes.move([3,4], [4,6])
 p kingman.valid_moves
 

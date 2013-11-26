@@ -66,12 +66,16 @@ class Board
     self
   end
 
+  def checkmate?(color)
+    in_check?(color) && pieces(color).all? { |piece| piece.valid_moves.size == 0 }
+  end
+
 end
 
 funtimes = Board.new
 castleman = Rook.new(:w, [4, 0], funtimes)
 manpawn = Pawn.new(:b, [1, 1], funtimes)
 kingman = King.new(:b, [3, 4], funtimes)
-funtimes.move([3,4], [4,6])
-p kingman.valid_moves
+queenlady = Queen.new(:w, [3,3], funtimes)
+p funtimes.checkmate?(:b)
 

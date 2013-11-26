@@ -73,9 +73,8 @@ class Board
 end
 
 funtimes = Board.new
-castleman = Rook.new(:w, [4, 0], funtimes)
-manpawn = Pawn.new(:b, [1, 1], funtimes)
-kingman = King.new(:b, [3, 4], funtimes)
-queenlady = Queen.new(:w, [3,3], funtimes)
+castleman = Rook.new(:w, [7, 0], funtimes)
+kingman = King.new(:b, [0,0], funtimes)
+queenlady = Queen.new(:w, [0,2], funtimes)
 p funtimes.checkmate?(:b)
 

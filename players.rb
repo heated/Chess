@@ -9,6 +9,7 @@ class HumanPlayer
     raise "That isn't your piece!" if board.enemy?(piece_pos, color)
     raise "There is no piece there!" if board.empty?(piece_pos)
     raise "That is not even a coordinate" unless board.on_board?(piece_pos)
+
     puts "\nWhere do you want to move to?"
     move_to_pos = parse_input(gets.chomp)
     board.move(piece_pos, move_to_pos)

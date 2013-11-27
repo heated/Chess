@@ -9,7 +9,7 @@ class Piece
                 [0, -1],
                 [0, 1]]
 
-  attr_reader :color, :pos
+  attr_reader :color, :pos, :has_moved
   def initialize(color, pos, board)
     @color, @pos, @board = color, pos, board
     @has_moved = false
@@ -22,9 +22,12 @@ class Piece
 
   def valid_moves
     moves.reject do |move|
-      new_board = @board.dup.move!(self.pos, move)
-      new_board.in_check?(@color) || new_board.no_capture_roll == 50
+      @board.dup.move!(self.pos, move).in_check?(@color)
     end
+  end
+
+  def has_moved?
+    @has_moved
   end
 
   def pos=(pos)

@@ -5,7 +5,7 @@ require_relative 'pawn.rb'
 require 'colorize'
 
 class Board
-  attr_reader :last_jump
+  attr_reader :last_jump, :no_capture_roll
   def initialize(no_capture_roll = 0)
     @grid = Array.new(8) { Array.new(8) }
     @no_capture_roll = no_capture_roll
@@ -36,7 +36,14 @@ class Board
 
   def in_check?(color)
     king = pieces(color).select { |piece| piece.is_a?(King) }.first
-    pieces(color == :w ? :b : :w).any? { |piece| piece.moves.include?(king.pos) }
+
+    pieces(color == :w ? :b : :w).any? do |piece|
+      if piece.is_a?(King)
+        piece.moves(true).include?(king.pos)
+      else
+        piece.moves.include?(king.pos)
+      end
+    end
   end
 
   def pieces(color)
@@ -67,11 +74,11 @@ class Board
 
       @no_capture_roll = 0 unless self.empty?(end_pos)
 
+      handle_castle(end_pos, piece)
       pawn_jump(end_pos, piece)
       piece.pos = end_pos
     end
     pawn_promotion(piece)
-
 
     self
   end
@@ -95,10 +102,11 @@ class Board
   end
 
   def draw?
-    [:w, :b].any? do |color|
+    no_moves = [:w, :b].any? do |color|
       pieces(color).all? { |piece| piece.valid_moves.size == 0 } &&
       !in_check?(color)
     end
+    no_moves || @no_capture_roll >= 50
   end
 
   def to_s
@@ -123,9 +131,21 @@ class Board
   end
 
   private
+  def handle_castle(end_pos, piece)
+    modx = piece.pos[0] - end_pos[0]
+    if piece.is_a?(King) && modx.abs == 2
+      x, y = piece.pos
+      rook_x = (modx == -2 ? x + 3 : x - 4)
+
+      jump_x = (x + end_pos[0]) / 2
+
+      self[[rook_x, y]].pos = [jump_x, y]
+    end
+  end
+
   def pawn_jump(end_pos, piece)
     if piece.is_a?(Pawn) && (piece.pos[1] - end_pos[1]).abs == 2
-      jump_y = ((piece.pos[1] + end_pos[1]) / 2)
+      jump_y = (piece.pos[1] + end_pos[1]) / 2
       @last_jump = [end_pos[0], jump_y]
     else
       @last_jump = nil

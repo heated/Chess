@@ -80,7 +80,8 @@ class Board
   end
 
   def to_s
-    str = "\nx  a b c d e f g h \n"
+    puts "\e[H\e[2J"
+    str = "x  a b c d e f g h \n"
     @grid.size.times do |y|
       str << "\n" + (8 - y).to_s + " "
 

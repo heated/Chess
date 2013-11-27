@@ -15,6 +15,7 @@ class HumanPlayer
   end
 
   # a - h, 1 - 8
+  private
   def parse_input(input)
     letters = ("a".."h").to_a
 

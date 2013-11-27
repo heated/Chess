@@ -18,26 +18,27 @@ class SteppingPiece < Piece
 
     moves
   end
-
 end
 
 class King < SteppingPiece
-  def variationsgit
-    DIAGONALS + MANHATTANS
-  end
-
   def to_s
     @color == :w ? "♔" : "♚"
+  end
+
+  private
+  def variations
+    DIAGONALS + MANHATTANS
   end
 end
 
 class Knight < SteppingPiece
+  def to_s
+    @color == :w ? "♘" : "♞"
+  end
+
+  private
   def variations
     a = [-1, 1].product([-2, 2])
     a += a.map(&:reverse)
-  end
-
-  def to_s
-    @color == :w ? "♘" : "♞"
   end
 end

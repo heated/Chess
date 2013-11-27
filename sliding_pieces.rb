@@ -22,38 +22,37 @@ class SlidingPiece < Piece
 
     moves
   end
-
-  def directions
-    raise "Not Implemented yet!"
-  end
 end
 
 class Bishop < SlidingPiece
-  def directions
-    DIAGONALS
-  end
-
   def to_s
     @color == :w ? "♗" : "♝"
+  end
+
+  private
+  def directions
+    DIAGONALS
   end
 end
 
 class Rook < SlidingPiece
-  def directions
-    MANHATTANS
-  end
-
   def to_s
     @color == :w ? "♖" : "♜"
+  end
+
+  private
+  def directions
+    MANHATTANS
   end
 end
 
 class Queen < SlidingPiece
-  def directions
-    DIAGONALS + MANHATTANS
-  end
-
   def to_s
     @color == :w ? "♕" : "♛"
+  end
+
+  private
+  def directions
+    DIAGONALS + MANHATTANS
   end
 end

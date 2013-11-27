@@ -5,12 +5,30 @@ require_relative 'players.rb'
 class Game
   attr_accessor :board
   def initialize(players)
-    @white = players[:white]
-    @black = players[:black]
+    @players = players
     @board = Board.new
     setup_pieces
   end
 
+  def play
+    current_player = :w
+    until @board.over?
+      puts @board
+      begin
+        puts "\n#{current_player} to play."
+        @players[current_player].play_turn(@board, current_player)
+      rescue => e
+        puts e.message
+        retry
+      end
+
+      current_player = (current_player == :w ? :b : :w)
+    end
+
+    end_game
+  end
+
+  private
   def setup_pieces
     positioning = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
     8.times do |i|
@@ -21,27 +39,7 @@ class Game
     end
   end
 
-  def play
-    turn = 0
-    until @board.over?
-      puts @board
-      begin
-
-        if turn.odd?
-          puts "\nBlack to play."
-          @black.play_turn(@board, :b)
-        else
-          puts "\nWhite to play."
-          @white.play_turn(@board, :w)
-        end
-
-      rescue => e
-        puts e.message
-        retry
-      end
-      turn += 1
-    end
-
+  def end_game
     if @board.draw?
       puts "game is a draw!"
     elsif @board.winner == :w
@@ -55,5 +53,5 @@ end
 John = HumanPlayer.new("John")
 Harold = ComputerPlayer.new("Harold")
 
-funtimes = Game.new({:white => John, :black => Harold})
+funtimes = Game.new({:w => John, :b => Harold})
 funtimes.play

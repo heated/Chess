@@ -82,7 +82,7 @@ class Board
   def draw?
     [:w, :b].any? do |color|
       pieces(color).all? { |piece| piece.valid_moves.size == 0 } &&
-      !in_check?(color))
+      !in_check?(color)
     end
   end
 
@@ -103,8 +103,8 @@ class Board
         str << ((x+y).even? ? new_str.black.on_white : new_str.black.on_green)
 
       end
-
     end
+
     str
   end
 end

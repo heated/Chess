@@ -19,13 +19,10 @@ class SteppingPiece < Piece
     moves
   end
 
-  def variations
-    raise "Not Implemented yet!"
-  end
 end
 
 class King < SteppingPiece
-  def variations
+  def variationsgit
     DIAGONALS + MANHATTANS
   end
 

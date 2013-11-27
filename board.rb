@@ -72,11 +72,18 @@ class Board
   end
 
   def over?
-    checkmate?(:w) || checkmate?(:b)
+    checkmate?(:w) || checkmate?(:b) || draw?
   end
 
   def winner?
     checkmate?(:w) ? :b : :w
+  end
+
+  def draw?
+    [:w, :b].any? do |color|
+      pieces(color).all? { |piece| piece.valid_moves.size == 0 } &&
+      !in_check?(color))
+    end
   end
 
   def to_s

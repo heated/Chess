@@ -42,7 +42,9 @@ class Game
       turn += 1
     end
 
-    if @board.winner == :w
+    if @board.draw?
+      puts "game is a draw!"
+    elsif @board.winner == :w
        puts "Congratulations, White wins!"
     else
        puts "Congratulations, Black wins!"

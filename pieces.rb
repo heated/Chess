@@ -12,11 +12,8 @@ class Piece
   attr_reader :color, :pos
   def initialize(color, pos, board)
     @color, @pos, @board = color, pos, board
+    @has_moved = false
     board[pos] = self
-  end
-
-  def moves
-    raise "Not Implemented yet!"
   end
 
   def dup(new_board)
@@ -25,7 +22,8 @@ class Piece
 
   def valid_moves
     moves.reject do |move|
-      @board.dup.move!(self.pos, move).in_check?(@color)
+      new_board = @board.dup.move!(self.pos, move)
+      new_board.in_check?(@color) || new_board.no_capture_roll == 50
     end
   end
 
@@ -33,5 +31,6 @@ class Piece
     @board[@pos] = nil
     @board[pos] = self
     @pos = pos
+    @has_moved = true
   end
 end

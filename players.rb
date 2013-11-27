@@ -32,8 +32,6 @@ class ComputerPlayer
   end
 
   def play_turn(board, color)
-
-
     piece_pos, move_to_pos = board.pieces(color).inject([]) do |moves, piece|
       moves + piece.valid_moves.map {|move| [piece.pos, move] }
     end.sample

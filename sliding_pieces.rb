@@ -3,9 +3,7 @@ require_relative 'pieces.rb'
 
 class SlidingPiece < Piece
   def moves
-    moves = []
-
-    directions.each do |direction|
+    directions.each_with_object([]) do |direction, moves|
       x, y = @pos
       modx, mody = direction
       x += modx
@@ -19,8 +17,6 @@ class SlidingPiece < Piece
 
       moves << [x, y] if @board.enemy?([x, y], @color)
     end
-
-    moves
   end
 end
 

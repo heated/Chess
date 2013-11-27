@@ -13,7 +13,8 @@ class Pawn < Piece
 
     [-1, 1].each do |xmod|
       new_x = x + xmod
-      moves << [new_x, y] if @board.enemy?([new_x, y], @color)
+      new_pos = [new_x, y]
+      moves << new_pos if @board.enemy?(new_pos, @color) || (@board.last_jump == new_pos)
     end
 
     if @board.empty?([x, y])

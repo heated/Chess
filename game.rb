@@ -51,7 +51,7 @@ class Game
 end
 
 John = HumanPlayer.new("John")
-Harold = ComputerPlayer.new("Harold")
+Harold = HumanPlayer.new("Harold")
 
 funtimes = Game.new({:w => John, :b => Harold})
 funtimes.play

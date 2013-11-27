@@ -112,7 +112,6 @@ class Board
         end
 
         str << ((x+y).even? ? new_str.black.on_white : new_str.black.on_green)
-
       end
     end
 

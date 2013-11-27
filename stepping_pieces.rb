@@ -3,20 +3,13 @@ require_relative 'pieces.rb'
 
 class SteppingPiece < Piece
   def moves
-    moves = []
+    x, y = @pos
 
-    variations.each do |variation|
-      x, y = @pos
-      modx, mody = variation
-      x += modx
-      y += mody
-      new_pos = [x, y]
-      if @board.empty?(new_pos) || @board.enemy?(new_pos, @color)
-        moves << new_pos
-      end
+    variations
+    .map { |(modx, mody)| [x + modx, y + mody] }
+    .select do |new_pos|
+      @board.empty?(new_pos) || @board.enemy?(new_pos, @color)
     end
-
-    moves
   end
 end
 

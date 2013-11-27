@@ -31,4 +31,3 @@ class Pawn < Piece
     @color == :w ? "♙" : "♟"
   end
 end
-

@@ -92,7 +92,7 @@ class Board
           new_str =  "  "
         end
 
-        str << ((x+y).odd? ? new_str.black.on_white : new_str.black.on_green)
+        str << ((x+y).even? ? new_str.black.on_white : new_str.black.on_green)
 
       end
 

@@ -1,6 +1,6 @@
 require_relative 'board.rb'
 require_relative 'players.rb'
-require 'colorize'
+
 
 class Game
   attr_accessor :board
@@ -26,6 +26,7 @@ class Game
     until @board.over?
       puts @board
       begin
+
         if turn.odd?
           puts "\nBlack to play.".red
           @black.play_turn(@board, :b)
@@ -33,13 +34,14 @@ class Game
           puts "\nWhite to play."
           @white.play_turn(@board, :w)
         end
+
       rescue => e
         puts e.message
         retry
       end
       turn += 1
     end
-    print ", "
+
     if @board.winner == :w
        puts "Congratulations, White wins!"
     else
@@ -49,9 +51,7 @@ class Game
 end
 
 John = HumanPlayer.new("John")
-
 Harold = HumanPlayer.new("Harold")
 
 funtimes = Game.new({:white => John, :black => Harold})
-
 funtimes.play

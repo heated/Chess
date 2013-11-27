@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require_relative 'pieces.rb'
 
 class SlidingPiece < Piece
@@ -33,7 +34,7 @@ class Bishop < SlidingPiece
   end
 
   def to_s
-    "B"
+    @color == :w ? "♗" : "♝"
   end
 end
 
@@ -43,7 +44,7 @@ class Rook < SlidingPiece
   end
 
   def to_s
-    "R"
+    @color == :w ? "♖" : "♜"
   end
 end
 
@@ -53,6 +54,6 @@ class Queen < SlidingPiece
   end
 
   def to_s
-    "Q"
+    @color == :w ? "♕" : "♛"
   end
 end

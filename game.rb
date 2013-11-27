@@ -1,4 +1,5 @@
 require_relative 'board.rb'
+require_relative 'players.rb'
 
 class Game
   attr_accessor :board
@@ -19,15 +20,16 @@ class Game
     end
   end
 
-
   def play
     turn = 0
     until @board.over?
-      p @board
+      puts @board
       begin
         if turn.odd?
+          puts "\nBlack to play."
           @black.play_turn(@board, :b)
         else
+          puts "\nWhite to play."
           @white.play_turn(@board, :w)
         end
       rescue => e
@@ -36,24 +38,12 @@ class Game
       end
       turn += 1
     end
-  end
-end
-
-class HumanPlayer
-
-  def initialize(name = "John")
-    @name = name
-  end
-
-  def play_turn(board, color)
-    puts "Pick a piece to move."
-    piece_pos = gets.chomp.split(",").map(&:strip).map { |coord| Integer(coord) }
-    raise "That isn't your piece!" if board.enemy?(piece_pos, color)
-    raise "There is no piece there!" if board.empty?(piece_pos)
-    raise "That is not even a coordinate" unless board.on_board?(piece_pos)
-    puts "Where do you want to move to?"
-    move_to_pos = gets.chomp.split(",").map(&:strip).map { |coord| Integer(coord) }
-    board.move(piece_pos, move_to_pos)
+    print ", "
+    if @board.winner == :w
+       puts "Congratulations, White wins!"
+    else
+       puts "Congratulations, Black wins!"
+    end
   end
 end
 

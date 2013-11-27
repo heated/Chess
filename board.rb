@@ -79,16 +79,18 @@ class Board
   end
 
   def to_s
-    str = ""
+    str = "\nx |a|b|c|d|e|f|g|h|\n"
     @grid.size.times do |y|
+      str << "\n" + (8 - y).to_s + " "
+
       @grid.size.times do |x|
         if self[[x, y]]
-          str << self[[x, y]].to_s
+          str <<  "|" + self[[x, y]].to_s
         else
-          str << "_"
+          str << "|_"
         end
       end
-      str << "\n"
+      str << "|"
     end
     str
   end

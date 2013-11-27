@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require_relative 'pieces.rb'
 
 class Pawn < Piece
@@ -27,6 +28,7 @@ class Pawn < Piece
   end
 
   def to_s
-    "p"
+    @color == :w ? "♙" : "♟"
   end
 end
+

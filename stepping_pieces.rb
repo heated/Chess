@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require_relative 'pieces.rb'
 
 class SteppingPiece < Piece
@@ -29,7 +30,7 @@ class King < SteppingPiece
   end
 
   def to_s
-    "K"
+    @color == :w ? "♔" : "♚"
   end
 end
 
@@ -40,6 +41,6 @@ class Knight < SteppingPiece
   end
 
   def to_s
-    "N"
+    @color == :w ? "♘" : "♞"
   end
 end

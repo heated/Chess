@@ -28,7 +28,7 @@ class Game
       begin
 
         if turn.odd?
-          puts "\nBlack to play.".red
+          puts "\nBlack to play."
           @black.play_turn(@board, :b)
         else
           puts "\nWhite to play."
@@ -51,7 +51,7 @@ class Game
 end
 
 John = HumanPlayer.new("John")
-Harold = HumanPlayer.new("Harold")
+Harold = ComputerPlayer.new("Harold")
 
 funtimes = Game.new({:white => John, :black => Harold})
 funtimes.play

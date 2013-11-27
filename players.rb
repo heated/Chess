@@ -24,3 +24,21 @@ class HumanPlayer
     coords
   end
 end
+
+class ComputerPlayer
+  def initialize(name = "DESTRUCTINATOR")
+    @name = name
+  end
+
+  def play_turn(board, color)
+
+
+    piece_pos, move_to_pos = board.pieces(color).inject([]) do |moves, piece|
+      moves + piece.valid_moves.map {|move| [piece.pos, move] }
+    end.sample
+    puts "computer moves from #{piece_pos} to #{move_to_pos}"
+
+    board.move(piece_pos, move_to_pos)
+  end
+
+end

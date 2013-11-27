@@ -16,12 +16,14 @@ class Pawn < Piece
       moves << [new_x, y] if @board.enemy?([new_x, y], @color)
     end
 
-    y += direction
+    if @board.empty?([x, y])
+      y += direction
 
-    if @color == :w
-      moves << [x, y] if y == 4 && @board.empty?([x, y])
-    else
-      moves << [x, y] if y == 3 && @board.empty?([x, y])
+      if @color == :w
+        moves << [x, y] if y == 4 && @board.empty?([x, y])
+      else
+        moves << [x, y] if y == 3 && @board.empty?([x, y])
+      end
     end
 
     moves

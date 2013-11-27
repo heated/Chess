@@ -2,6 +2,7 @@ require_relative 'pieces.rb'
 require_relative 'sliding_pieces.rb'
 require_relative 'stepping_pieces.rb'
 require_relative 'pawn.rb'
+require 'colorize'
 
 class Board
   def initialize
@@ -79,18 +80,22 @@ class Board
   end
 
   def to_s
-    str = "\nx |a|b|c|d|e|f|g|h|\n"
+    str = "\nx  a b c d e f g h \n"
     @grid.size.times do |y|
       str << "\n" + (8 - y).to_s + " "
 
       @grid.size.times do |x|
+
         if self[[x, y]]
-          str <<  "|" + self[[x, y]].to_s
+          new_str =  self[[x, y]].to_s + " "
         else
-          str << "|_"
+          new_str =  "  "
         end
+
+        str << ((x+y).odd? ? new_str.black.on_white : new_str.black.on_green)
+
       end
-      str << "|"
+
     end
     str
   end

@@ -1,5 +1,6 @@
 require_relative 'board.rb'
 require_relative 'players.rb'
+require 'colorize'
 
 class Game
   attr_accessor :board
@@ -26,7 +27,7 @@ class Game
       puts @board
       begin
         if turn.odd?
-          puts "\nBlack to play."
+          puts "\nBlack to play.".red
           @black.play_turn(@board, :b)
         else
           puts "\nWhite to play."

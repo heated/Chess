@@ -58,6 +58,8 @@ class Board
       raise "You can't move into check!" unless piece.valid_moves.include?(end_pos)
       piece.pos = end_pos
     end
+    pawn_promotion(piece)
+
     self
   end
 
@@ -65,6 +67,15 @@ class Board
     piece = self[start_pos]
     piece.pos = end_pos
     self
+  end
+
+  def pawn_promotion(piece)
+    if piece.is_a?(Pawn)
+      if (piece.color == :w && piece.pos[1] == 0) ||
+         (piece.color == :b && piece.pos[1] == 7)
+        Queen.new(piece.color, piece.pos, self)
+      end
+    end
   end
 
   def checkmate?(color)

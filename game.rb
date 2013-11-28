@@ -1,5 +1,6 @@
 require_relative 'board.rb'
 require_relative 'players.rb'
+require 'socket'
 
 class Game
   attr_accessor :board
@@ -46,13 +47,14 @@ class Game
     if @board.draw?
       puts "game is a draw!"
     else
-       puts "Congratulations, #{@players[@board.winner].name} wins!"
-     end
+      puts "Congratulations, #{@players[@board.winner].name} wins!"
+    end
   end
 end
 
 John = HumanPlayer.new("John")
 Harold = ComputerPlayer.new("Harold")
+Hateful = InternetPlayer.new("Anonymous")
 
-funtimes = Game.new( {:w => John, :b => Harold} )
+funtimes = Game.new( {:w => John, :b => Hateful} )
 funtimes.play

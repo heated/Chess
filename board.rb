@@ -5,7 +5,7 @@ require_relative 'pawn.rb'
 require 'colorize'
 
 class Board
-  attr_reader :last_jump, :no_capture_roll, :cursor
+  attr_reader :last_jump, :no_capture_roll, :cursor, :last_move
   def initialize(no_capture_roll = 0)
     @grid = Array.new(8) { Array.new(8) }
     @no_capture_roll = no_capture_roll
@@ -82,6 +82,7 @@ class Board
       handle_castle(end_pos, piece)
       pawn_jump(end_pos, piece)
       piece.pos = end_pos
+      @last_move = [start_pos, end_pos]
     end
     pawn_promotion(piece)
 

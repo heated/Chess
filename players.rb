@@ -78,3 +78,35 @@ class ComputerPlayer
   end
 
 end
+
+class InternetPlayer
+  attr_reader :name
+  def initialize(name = "anon")
+    @hostname = 'localhost'
+    @port = "30000"
+  end
+
+  def play_turn(board, color)
+    socket = TCPSocket.new( @hostname, @port )
+
+    # send last move
+    unless board.last_move.nil?
+      socket.puts board.last_move.flatten.join(" ")
+    end
+    # get other player's move
+
+    move_str = socket.gets.chomp
+    p 'hey'
+
+    unless move_str == ""
+      flat_move = move_str.split(" ").map(&:to_i)
+
+      socket.close
+      # perform move
+      board.move(flat_move.take(2), flat_move.drop(2))
+    else
+      p 'heyHEY'
+      gets
+    end
+  end
+end

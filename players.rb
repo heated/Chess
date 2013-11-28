@@ -1,23 +1,28 @@
 require 'io/console'
 
 class HumanPlayer
+  attr_reader :name
   def initialize(name = "John")
     @name = name
   end
 
   def play_turn(board, color)
 
-    puts "\nPick a piece to move."
+    # puts "\nPick a piece to move."
     piece_pos = cursor_input(board)
-
 
 
     raise "That isn't your piece!" if board.enemy?(piece_pos, color)
     raise "There is no piece there!" if board.empty?(piece_pos)
     raise "That is not even a coordinate" unless board.on_board?(piece_pos)
 
-    puts "\nWhere do you want to move to?"
+    board.show_moves(piece_pos)
+    p board
+
+    # puts "\nWhere do you want to move to?"
     move_to_pos = cursor_input(board)
+
+    board.hide_moves
 
     board.move(piece_pos, move_to_pos)
   end
@@ -58,6 +63,7 @@ class HumanPlayer
 end
 
 class ComputerPlayer
+  attr_reader :name
   def initialize(name = "DESTRUCTINATOR")
     @name = name
   end

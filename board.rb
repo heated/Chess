@@ -9,7 +9,7 @@ class Board
   def initialize(no_capture_roll = 0)
     @grid = Array.new(8) { Array.new(8) }
     @no_capture_roll = no_capture_roll
-    @cursor = [5, 7]
+    @cursor = [4, 7]
   end
 
   def empty?(pos)
@@ -114,6 +114,14 @@ class Board
     no_moves || @no_capture_roll >= 50
   end
 
+  def show_moves(pos)
+    @showing_moves = self[pos].valid_moves
+  end
+
+  def hide_moves
+    @showing_moves = nil
+  end
+
   def to_s
 
     str = "\e[H\e[2Jx  a b c d e f g h \n"
@@ -130,6 +138,8 @@ class Board
 
         if @cursor == [x, y]
           str << new_str.black.on_blue
+        elsif @showing_moves && @showing_moves.include?([x, y])
+          str << new_str.black.on_yellow
         else
           str << ((x+y).even? ? new_str.black.on_white : new_str.black.on_green)
         end

@@ -13,8 +13,8 @@ class Game
     current_player = :w
     until @board.over?
       puts @board
+      puts "\n#{print_current_player(current_player)} to play."
       begin
-        puts "\n#{current_player} to play."
         @players[current_player].play_turn(@board, current_player)
       rescue => e
         puts e.message
@@ -38,14 +38,16 @@ class Game
     end
   end
 
+  def print_current_player(color)
+    color == :w ? "White" : "Black"
+  end
+
   def end_game
     if @board.draw?
       puts "game is a draw!"
-    elsif @board.winner == :w
-       puts "Congratulations, White wins!"
     else
-       puts "Congratulations, Black wins!"
-    end
+       puts "Congratulations, #{@players[@board.winner].name} wins!"
+     end
   end
 end
 

@@ -1,7 +1,6 @@
 require_relative 'board.rb'
 require_relative 'players.rb'
 
-
 class Game
   attr_accessor :board
   def initialize(players)

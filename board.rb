@@ -5,10 +5,11 @@ require_relative 'pawn.rb'
 require 'colorize'
 
 class Board
-  attr_reader :last_jump, :no_capture_roll
+  attr_reader :last_jump, :no_capture_roll, :cursor
   def initialize(no_capture_roll = 0)
     @grid = Array.new(8) { Array.new(8) }
     @no_capture_roll = no_capture_roll
+    @cursor = [5, 7]
   end
 
   def empty?(pos)
@@ -32,6 +33,10 @@ class Board
 
   def []=(pos, piece)
     @grid[pos[0]][pos[1]] = piece
+  end
+
+  def cursor=(pos)
+    on_board?(pos) && @cursor = pos
   end
 
   def in_check?(color)
@@ -97,7 +102,7 @@ class Board
     checkmate?(:w) || checkmate?(:b) || draw?
   end
 
-  def winner?
+  def winner
     checkmate?(:w) ? :b : :w
   end
 
@@ -110,8 +115,8 @@ class Board
   end
 
   def to_s
-    puts "\e[H\e[2J"
-    str = "x  a b c d e f g h \n"
+
+    str = "\e[H\e[2Jx  a b c d e f g h \n"
     @grid.size.times do |y|
       str << "\n" + (8 - y).to_s + " "
 
@@ -123,7 +128,11 @@ class Board
           new_str =  "  "
         end
 
-        str << ((x+y).even? ? new_str.black.on_white : new_str.black.on_green)
+        if @cursor == [x, y]
+          str << new_str.black.on_blue
+        else
+          str << ((x+y).even? ? new_str.black.on_white : new_str.black.on_green)
+        end
       end
     end
 
